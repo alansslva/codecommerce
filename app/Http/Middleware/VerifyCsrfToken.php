@@ -1,6 +1,6 @@
 <?php
 
-namespace codecommerce\Http\Middleware;
+namespace CodeCommerce\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 

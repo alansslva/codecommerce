@@ -1,8 +1,8 @@
 <?php
 
-namespace codecommerce\Http\Controllers\Auth;
+namespace CodeCommerce\Http\Controllers\Auth;
 
-use codecommerce\Http\Controllers\Controller;
+use CodeCommerce\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller

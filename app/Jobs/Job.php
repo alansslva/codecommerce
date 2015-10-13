@@ -1,6 +1,6 @@
 <?php
 
-namespace codecommerce\Jobs;
+namespace CodeCommerce\Jobs;
 
 use Illuminate\Bus\Queueable;
 

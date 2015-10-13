@@ -1,6 +1,6 @@
 <?php
 
-namespace codecommerce\Providers;
+namespace CodeCommerce\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'codecommerce\Http\Controllers';
+    protected $namespace = 'CodeCommerce\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.

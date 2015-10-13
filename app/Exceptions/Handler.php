@@ -1,6 +1,6 @@
 <?php
 
-namespace codecommerce\Exceptions;
+namespace CodeCommerce\Exceptions;
 
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
