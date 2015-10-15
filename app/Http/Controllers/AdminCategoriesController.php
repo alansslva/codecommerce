@@ -18,10 +18,9 @@ class AdminCategoriesController extends Controller
     public function index()
     {
         $cat = new Category();
+
         $categories = $cat->all();
-        foreach($categories as $category){
-            echo '<li>'.$category->name.'</li>';
-        }
+        return view('categorias', compact('categories'));
 
     }
 

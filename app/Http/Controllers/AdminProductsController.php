@@ -18,10 +18,8 @@ class AdminProductsController extends Controller
     {
         //
         $prod = new Product();
-        $produtos = $prod->all();
-        foreach($produtos as $produto){
-            echo '<li>'.$produto->name.'</li>';
-        }
+        $products = $prod->all();
+        return view('products', compact('products'));
     }
 
     /**
