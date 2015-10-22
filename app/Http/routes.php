@@ -16,5 +16,26 @@ Route::get('/', function () {
 });
 
 
-Route::get('/admin/categories', 'AdminCategoriesController@index');
-Route::get('/admin/products', 'AdminProductsController@index');
+//Route::get('/admin/categories', 'AdminCategoriesController@index');
+//Route::get('/admin/products', 'AdminProductsController@index');
+
+Route::pattern('id', '[0-9]+');
+
+Route::group(['prefix' => 'admin'], function() {
+    Route::group(['prefix' => 'categories'], function() {
+        Route::get('/', [ 'as' => 'listcategory', 'AdminCategoriesController@index']);
+        Route::get('/{id}', [ 'as' => 'category', 'AdminCategoriesController@category']);
+        Route::post('/create', [ 'as' => 'addcategory', 'AdminCategoriesController@store']);
+        Route::put('/{id}/edit', [ 'as' => 'editcategory', 'AdminCategoriesController@update']);
+        Route::get('/{id}/destroy', [ 'as' => 'destroycategory', 'AdminCategoriesController@destroy']);
+    });
+
+
+    Route::group(['prefix' => 'products'], function(){
+        Route::get('/', [ 'as' => 'listproduct', 'AdminProductsController@index']);
+        Route::get('/{id}', [ 'as' => 'product', 'AdminProductsController@product']);
+        Route::post('/create', [ 'as' => 'addproduct', 'AdminProductsController@store']);
+        Route::put('/{id}/edit', [ 'as' => 'editproduct', 'AdminProductsController@edit']);
+        Route::get('/{id}/destroy', [ 'as' => 'destroyproduct', 'AdminProductsController@destroy']);
+    });
+});
