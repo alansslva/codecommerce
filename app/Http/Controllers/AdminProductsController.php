@@ -14,6 +14,12 @@ class AdminProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $productModel;
+    public function __construct(Product $product)
+    {
+        $this->productModel = $product;
+    }
+
     public function index()
     {
         //
@@ -22,25 +28,19 @@ class AdminProductsController extends Controller
         return view('products', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+
+        return view('products.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(Requests\ProductRequest $request)
     {
-        //
+        $product = $this->productModel->fill($request->all());
+        $product->save();
+
+        return redirect()->route('listproduct');
     }
 
     /**
@@ -62,7 +62,9 @@ class AdminProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = $this->productModel->find($id);
+
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -72,9 +74,11 @@ class AdminProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\ProductRequest $request, $id)
     {
-        //
+        $this->productModel->find($id)->update($request->all());
+
+        return redirect()->route('listproduct');
     }
 
     /**
@@ -85,6 +89,8 @@ class AdminProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->productModel->find($id)->delete();
+
+        return redirect()->route('listproduct');
     }
 }

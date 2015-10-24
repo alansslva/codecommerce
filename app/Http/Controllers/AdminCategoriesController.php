@@ -15,11 +15,18 @@ class AdminCategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $categoryModel;
+
+    public function __construct(Category $category)
+    {
+        $this->categoryModel = $category;
+    }
+
+
     public function index()
     {
-        $cat = new Category();
-
-        $categories = $cat->all();
+        $categories = $this->categoryModel->all();
         return view('categorias', compact('categories'));
 
     }
@@ -31,7 +38,8 @@ class AdminCategoriesController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('categories.create');
     }
 
     /**
@@ -40,9 +48,18 @@ class AdminCategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\CategoryRequest $request)
     {
-        //
+        //ARMAZENAR DADOS
+
+        $input = $request->all();
+
+        $category = $this->categoryModel->fill($input);
+
+        $category->save();
+
+        return redirect()->route('listcategory');
+
     }
 
     /**
@@ -54,6 +71,7 @@ class AdminCategoriesController extends Controller
     public function show($id)
     {
         //
+
     }
 
     /**
@@ -64,7 +82,9 @@ class AdminCategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = $this->categoryModel->find($id);
+
+        return view ('categories.edit', compact('category'));
     }
 
     /**
@@ -74,9 +94,14 @@ class AdminCategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CategoryRequest $request, $id)
     {
         //
+        $input = $request->all();
+
+        $this->categoryModel->find($id)->update($input);
+
+        return redirect()->route('listcategory');
     }
 
     /**
@@ -87,6 +112,10 @@ class AdminCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //APAGAR CATEGORIAS
+        $this->categoryModel->find($id)->delete();
+
+        return redirect()->route('listcategory');
+
     }
 }
