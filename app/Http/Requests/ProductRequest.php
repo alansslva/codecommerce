@@ -29,7 +29,7 @@ class ProductRequest extends Request
         return [
             'name' => 'required|min:3',
             'description' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric|min:1',
         ];
     }
 }
