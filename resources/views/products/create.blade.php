@@ -3,6 +3,15 @@
 @section('content')
     <div class="container">
         <h1>Cadastrar Produto</h1>
+
+        @if ($errors->any())
+            <ul class="alert">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+
         {!! Form::open(array('route' => 'storeproduct')) !!}
 
         <div class="form-group">
