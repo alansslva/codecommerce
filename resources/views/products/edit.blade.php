@@ -3,6 +3,16 @@
 @section('content')
     <div class="container">
         <h1>Editar Produto</h1>
+
+
+        @if ($errors->any())
+            <ul class="alert">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+
         {!! Form::open(array('method' => 'put', 'route' =>  array('updateproduct', $product->id))) !!}
 
         <div class="form-group">
