@@ -20,6 +20,11 @@
         </div>
 
         <div class="form-group">
+            {!! Form::label('category','Category') !!}
+            {!! Form::select('category_id',$categories,null,array('class'=>'form-control')) !!}
+        </div>
+
+        <div class="form-group">
             {!! Form::label('price','Price') !!}
             {!! Form::text('price','',array('class'=>'form-control')) !!}
         </div>

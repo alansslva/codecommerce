@@ -21,6 +21,11 @@
         </div>
 
         <div class="form-group">
+            {!! Form::label('category','Category') !!}
+            {!! Form::select('category_id',$categories,$product->category_id,array('class'=>'form-control')) !!}
+        </div>
+
+        <div class="form-group">
             {!! Form::label('price','Price') !!}
             {!! Form::text('price', $product->price ,array('class'=>'form-control')) !!}
         </div>

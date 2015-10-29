@@ -26,7 +26,7 @@ class AdminCategoriesController extends Controller
 
     public function index()
     {
-        $categories = $this->categoryModel->all();
+        $categories = $this->categoryModel->paginate(5);
         return view('categorias', compact('categories'));
 
     }
