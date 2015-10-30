@@ -37,5 +37,15 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/{id}/edit', [ 'as' => 'editproduct', 'uses' => 'AdminProductsController@edit']);
         Route::put('/{id}/update', [ 'as' => 'updateproduct', 'uses' => 'AdminProductsController@update']);
         Route::get('/{id}/destroy', [ 'as' => 'destroyproduct', 'uses' => 'AdminProductsController@destroy']);
+
+        Route::group(['prefix' => 'images'], function(){
+            Route::get('{id}',['as'=>'product.images', 'uses' => 'AdminProductsController@images']);
+            Route::get('create/{id}',['as'=>'product.image.create', 'uses' => 'AdminProductsController@createImage']);
+            Route::post('create/{id}',['as'=>'product.image.store', 'uses' => 'AdminProductsController@storeImage']);
+            Route::get('destroy/{id}',['as'=>'product.image.destroy', 'uses' => 'AdminProductsController@destroyImage']);
+        });
+
     });
+
+
 });

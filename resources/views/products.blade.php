@@ -27,6 +27,7 @@
                     <td>
                         <a href="{{ route('destroyproduct',['id' => $produto->id]) }}"><span class="glyphicon glyphicon-trash"></span></a>
                         <a href="{{ route('editproduct',['id' => $produto->id]) }}"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="{{ route('product.images',['id' => $produto->id]) }}"><span class="glyphicon glyphicon-picture"></span></a>
                     </td>
                 </tr>
             @endforeach
