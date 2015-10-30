@@ -1,5 +1,3 @@
-
-
 @extends('app')
 
 @section('content')
@@ -14,6 +12,7 @@
                 <td><h4>Descrição</h4></td>
                 <td><h4>Action</h4></td>
             </tr>
+
             @foreach($categories as $category)
                 <tr>
                     <td>{{ $category->id  }}</td>
@@ -25,9 +24,8 @@
                     </td>
                 </tr>
         @endforeach
+
         </table>
         {!! $categories->render() !!}
     </div>
-
-
 @endsection
