@@ -1,0 +1,10 @@
+
+
+                                 
+  [InvalidArgumentException]     
+  Command "key" is not defined.  
+  Did you mean this?             
+      key:generate               
+                                 
+
+
