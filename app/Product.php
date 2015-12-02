@@ -26,4 +26,9 @@ class Product extends Model
         return $this->hasMany('CodeCommerce\ProductImage');
     }
 
+     public function tags()
+    {
+        return $this->belongsToMany('CodeCommerce\Tag');
+    }
+
 }

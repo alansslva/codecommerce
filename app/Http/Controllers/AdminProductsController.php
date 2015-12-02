@@ -3,6 +3,7 @@
 namespace CodeCommerce\Http\Controllers;
 
 use CodeCommerce\Category;
+use CodeCommerce\Tag;
 use CodeCommerce\ProductImage;
 use Illuminate\Http\Request;
 use CodeCommerce\Http\Requests;
@@ -69,8 +70,14 @@ class AdminProductsController extends Controller
     {
         $product = $this->productModel->find($id);
         $categories = $category->lists('name', 'id');
+        $tags = '';
 
-        return view('products.edit', compact('product', 'categories'));
+        foreach($product->tags as $tag)
+        {
+            $tags .= ' '.$tag->name.',';
+        }
+
+        return view('products.edit', compact('product', 'categories','tags'));
     }
 
     /**
@@ -80,9 +87,20 @@ class AdminProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\ProductRequest $request, $id)
+    public function update(Requests\ProductRequest $request, $id, Tag $tagModel)
     {
         $this->productModel->find($id)->update($request->all());
+        $tags = explode(',', $request->tags);
+        $product = $this->productModel->find($id);
+        $tagsAdd = array();
+        foreach($tags as $newtags)
+        {
+            $tag = $tagModel->firstOrCreate(['name' => trim($newtags)]);
+            $tagsAdd[] = $tag->id;
+        }
+
+        $product->tags()->sync($tagsAdd);
+
 
         return redirect()->route('listproduct');
     }
@@ -106,6 +124,11 @@ class AdminProductsController extends Controller
                 }
                 $image->delete();
             }
+        }
+
+        foreach($product->tags as $tag)
+        {
+            $product->tags()->dettach($tag->id);
         }
 
         $product->delete();
@@ -135,7 +158,7 @@ class AdminProductsController extends Controller
         $image = $productImage::create([
             'product_id' => $id,
             'extension' => $extension
-        ]);
+            ]);
 
         Storage::disk('public_local')->put($image->id.'.'.$extension, File::get($file));
 

@@ -36,6 +36,11 @@
         </div>
 
         <div class="form-group">
+            {!! Form::label('tags','Tags') !!}
+            {!! Form::text('tags', $tags ,array('class'=>'form-control', 'placeholder' => 'escreva as tags entre virgulas')) !!}
+        </div>
+
+        <div class="form-group">
             {!! Form::label('featured','Featured') !!}
             {!! Form::checkbox('featured', '1', $product->featured) !!}
         </div>
