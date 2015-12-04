@@ -36,7 +36,7 @@
 
         <div class="form-group">
             {!! Form::label('tags','Tags') !!}
-            {!! Form::text('tags', $tags ,array('class'=>'form-control', 'placeholder' => 'escreva as tags entre virgulas')) !!}
+            {!! Form::text('tags', '' ,array('class'=>'form-control', 'placeholder' => 'escreva as tags entre virgulas')) !!}
         </div>
 
         <div class="form-group">

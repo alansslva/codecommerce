@@ -41,10 +41,37 @@ class AdminProductsController extends Controller
     }
 
 
+    /**
+     * [insere_tags description]
+     * @param  [type] $alltags [description]
+     * @param  [type] $id      [description]
+     * @return [type]          [description]
+     */
+    public function insere_tags($alltags, $id)
+    {
+        $tagModel = new Tag();
+        $product = $this->productModel->find($id);
+
+        $tags = explode(',', $alltags);
+        
+        $tagsAdd = array();
+        foreach($tags as $newtags)
+        {
+            $tag = $tagModel->firstOrCreate(['name' => trim($newtags)]);
+            $tagsAdd[] = $tag->id;
+        }
+
+        $product->tags()->sync($tagsAdd);
+    }
+
+
     public function store(Requests\ProductRequest $request)
     {
         $product = $this->productModel->fill($request->all());
-        $product->save();
+        $product = $this->productModel->firstOrCreate($request->all());
+        $this->insere_tags($request->tags, $product->id);
+        
+
 
         return redirect()->route('listproduct');
     }
@@ -59,6 +86,8 @@ class AdminProductsController extends Controller
     {
         //
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -80,6 +109,8 @@ class AdminProductsController extends Controller
         return view('products.edit', compact('product', 'categories','tags'));
     }
 
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -87,21 +118,10 @@ class AdminProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\ProductRequest $request, $id, Tag $tagModel)
+    public function update(Requests\ProductRequest $request, $id)
     {
         $this->productModel->find($id)->update($request->all());
-        $tags = explode(',', $request->tags);
-        $product = $this->productModel->find($id);
-        $tagsAdd = array();
-        foreach($tags as $newtags)
-        {
-            $tag = $tagModel->firstOrCreate(['name' => trim($newtags)]);
-            $tagsAdd[] = $tag->id;
-        }
-
-        $product->tags()->sync($tagsAdd);
-
-
+        $this->insere_tags($request->tags, $id);
         return redirect()->route('listproduct');
     }
 
