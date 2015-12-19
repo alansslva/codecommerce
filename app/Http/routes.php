@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [ 'as' => 'home', 'uses' => 'StoreController@index']);
+
+Route::group(['as' => 'categories:', 'prefix' => 'categories'], function() {
+        Route::get('/{id}/show', [ 'as' => 'list','uses' => 'StoreController@category']);
 });
 
 Route::pattern('id', '[0-9]+');
